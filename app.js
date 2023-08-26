@@ -1,7 +1,20 @@
-const Player = function(name,marker){
-    const playerName = ()=> console.log(name);
+const createPlayer = function(name,marker){
+    let score = 0;
+    const addScore = ()=> {
+        score++
+        return score;
+    
+    }
 
-    return {name,marker,playerName}
+    return {name,marker,addScore}
 }
+
+
+const player1 = createPlayer("kevin","X");
+
+
+ player1.addScore();
+
+
 
 
