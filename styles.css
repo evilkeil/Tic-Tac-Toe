@@ -46,8 +46,14 @@ h1{
 
 .container{
     width: 300px;
+    height: 300px;
     display: grid;
     grid-template-columns: repeat(3,1fr);
     border-top: 5px solid black;
     border-right: 5px solid black;
+}
+
+.play-area{
+    display: flex;
+    justify-content: center;
 }
