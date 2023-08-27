@@ -4,7 +4,12 @@
     src: url(assets/fonts/blackopsone-regular-webfont.woff2) format('woff2'),
     url(assets/fonts/blackopsone-regular-webfont.woff) format('woff');
 }
-
+@font-face {
+    font-family:  'RubicIso';
+    font-weight: 400;
+    src: url(assets/fonts/rubikiso-regular-webfont.woff2) format('woff2'),
+    url(assets/fonts/rubikiso-regular-webfont.woff) format('woff');
+}
 
 *,*::before,*::after{
     box-sizing: border-box;
@@ -17,6 +22,11 @@ body{
     display: grid;
     justify-content: center;
     
+}
+
+h1{
+    font-family: 'RubicIso';
+    font-size: 5rem;
 }
 .score-board{
     display: flex;
