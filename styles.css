@@ -1,4 +1,12 @@
-*,::before,::after{
+@font-face {
+    font-family:  'Black Ops One';
+    font-weight: 400;
+    src: url(assets/fonts/blackopsone-regular-webfont.woff2) format('woff2'),
+    url(assets/fonts/blackopsone-regular-webfont.woff) format('woff');
+}
+
+
+*,*::before,*::after{
     box-sizing: border-box;
 }
 
@@ -15,9 +23,14 @@ body{
     justify-content: space-between;
 }
 .box{
+    font-family: 'Black Ops One';
+    font-size: 100px;
     width: 100px;
     height: 100px;
     border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .container{
