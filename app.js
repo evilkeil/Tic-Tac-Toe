@@ -23,22 +23,23 @@ let setPlayer = (function(){
         const user1 = usernameOne.value;
         const user2 = usernameTwo.value;
         
-        const player1 = _createPlayer(user1,"X");
-        const player2 = _createPlayer(user2,"O");
+        const player1 = _createPlayer(user1,"X",5);
+        const player2 = _createPlayer(user2,"O",4);
 
         _addToPlayers(player1,player2);
         form.reset();
         modal.close();
-        console.log(players);
+        
     }
-    const _createPlayer = function(name,marker){
+    const _createPlayer = function(name,marker,turns){
         let score = 0;
+        let playerturns = turns;
         const addScore = ()=> {
             score++
             return score;
         
         }
-        return {name,marker,addScore,score}
+        return {name,marker,addScore,score,playerturns}
     }
 
     function _addToPlayers(p1,p2){
@@ -51,12 +52,11 @@ let setPlayer = (function(){
     }
     return {
         players,
-        addToPlayers,
         getPlayerScore
     }
 })()
 
-let render
+
 
 // const startDialog =function (){
 //     document.addEventListener('DOMContentLoaded',function(){
