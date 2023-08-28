@@ -1,5 +1,7 @@
 
 let setPlayer = (function(){
+
+    //variables
     let players = [];
 
     //cache
@@ -16,6 +18,7 @@ let setPlayer = (function(){
         submitInfo(e);
     });
 
+    //methods
 
     function submitInfo(e){
         e.preventDefault();
@@ -29,6 +32,7 @@ let setPlayer = (function(){
         _addToPlayers(player1,player2);
         form.reset();
         modal.close();
+        RenderScore.renderUserNames();
         
     }
     const _createPlayer = function(name,marker,turns){
@@ -50,6 +54,7 @@ let setPlayer = (function(){
     function getPlayerScore(){
         return players.map(player => ({name:player.name , score: player.score}))
     }
+
     return {
         players,
         getPlayerScore
@@ -58,6 +63,33 @@ let setPlayer = (function(){
 
 
 
+const RenderScore =(function(){
+
+    //cache
+    const score = document.querySelectorAll('.score');
+    //variables
+    // const scoreArr = Array.from(score);
+    // const playerNames = setPlayer.players.map(player => player.name);
+    const playerScores = setPlayer.getPlayerScore();
+
+    //functions 
+    function renderUserNames(){
+        const scoreArr = Array.from(score);
+        const playerNames = setPlayer.players.map(player => player.name);
+        scoreArr.forEach((scoreDiv,index)=>{
+            const h2Elem = scoreDiv.querySelector('.playerName');
+            h2Elem.textContent = playerNames[index];
+            console.log(playerNames);
+            
+        })
+    }
+    
+    
+return {renderUserNames}
+    
+
+})();
+// RenderScore.renderUserNames();
 // const startDialog =function (){
 //     document.addEventListener('DOMContentLoaded',function(){
 //         show
