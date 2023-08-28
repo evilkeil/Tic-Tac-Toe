@@ -4,8 +4,19 @@ let setPlayer = (function(){
 
     //cache
     const modal = document.querySelector('.modal');
-    const submitBtn = document.querySelector('.submit');
     const resetBtn = document.querySelector('.reset');
+    const form = document.getElementById('set-player');
+
+    //bind events
+
+    document.addEventListener('DOMContentLoaded',modal.showModal());
+    form.addEventListener('submit',submitInfo(e).bind(this));
+
+
+    function submitInfo(e){
+        e.preventDefault();
+
+    }
 
     
 })()
