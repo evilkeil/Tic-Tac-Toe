@@ -1,3 +1,27 @@
+
+let setPlayer = (function(){
+    let players = [];
+
+    //cache
+    const modal = document.querySelector('.modal');
+    const submitBtn = document.querySelector('.submit');
+    const resetBtn = document.querySelector('.reset');
+
+    
+})()
+
+
+// const startDialog =function (){
+//     document.addEventListener('DOMContentLoaded',function(){
+//         show
+//     })
+// }
+
+// const cache ={
+
+// }
+
+
 const createPlayer = function(name,marker){
     let score = 0;
     const addScore = ()=> {
