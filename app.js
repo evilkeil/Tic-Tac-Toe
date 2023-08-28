@@ -6,18 +6,46 @@ let setPlayer = (function(){
     const modal = document.querySelector('.modal');
     const resetBtn = document.querySelector('.reset');
     const form = document.getElementById('set-player');
+    const usernameOne = document.getElementById('user-name1');
+    const usernameTwo = document.getElementById('user-name2');
 
     //bind events
 
     document.addEventListener('DOMContentLoaded',modal.showModal());
-    form.addEventListener('submit',submitInfo(e).bind(this));
+    form.addEventListener('submit',(e)=>{
+        submitInfo(e);
+    });
 
 
     function submitInfo(e){
         e.preventDefault();
 
+        const user1 = usernameOne.value;
+        const user2 = usernameTwo.value;
+        
+        const player1 = createPlayer(user1,"X");
+        const player2 = createPlayer(user2,"O");
+
+        addToPlayers(player1,player2);
+        form.reset();
+        modal.close();
+        console.log(players);
+    }
+    const createPlayer = function(name,marker){
+        let score = 0;
+        const addScore = ()=> {
+            score++
+            return score;
+        
+        }
+        return {name,marker,addScore,score}
     }
 
+    function addToPlayers(p1,p2){
+        players.push(p1);
+        players.push(p2);
+    }
+   
     
 })()
 
@@ -91,22 +119,22 @@ function winCondition(){
 return result
 }
 
-game.markGameboard(0,"O");
-game.markGameboard(1,"X");
-game.markGameboard(2,"O");
-game.markGameboard(3,"O");
-game.markGameboard(4,"X");
-game.markGameboard(5,"O");
-game.markGameboard(6,"X");
-game.markGameboard(7,"O");
-game.markGameboard(8,"X");
+// game.markGameboard(0,"O");
+// game.markGameboard(1,"X");
+// game.markGameboard(2,"O");
+// game.markGameboard(3,"O");
+// game.markGameboard(4,"X");
+// game.markGameboard(5,"O");
+// game.markGameboard(6,"X");
+// game.markGameboard(7,"O");
+// game.markGameboard(8,"X");
 
-console.log(game.getGameboard());
-
-
+// console.log(game.getGameboard());
 
 
-console.log(winCondition());
+
+
+// console.log(winCondition());
 
 
 
