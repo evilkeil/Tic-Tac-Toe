@@ -36,22 +36,26 @@ const Onload =(function(){
         form.reset();
         modal.close();
         render('name');
+        render('score');
         
     }
     const _createPlayer = function(name,marker){
-        let score = 0;
+        
         let turns;
             if (marker === "X"){
                 turns = 5;
             }else if (marker === "O"){
                 turns = 4;
             }
-        const addScore = ()=> {
-            score++
-            return score;
-        
-        }
-        return {name,marker,addScore,score,turns}
+        return {
+            name,
+            marker,
+            addScore: function(){
+                this.score++;
+                return this.score;
+            },
+            score: 0,
+            turns:turns}
     }
     function _addToPlayers(p1,p2){
         players.push(p1);
@@ -74,13 +78,23 @@ const Onload =(function(){
         });
     }
 
+    function addScore(playerIndex) {
+        if (playerIndex >= 0 && playerIndex < players.length) {
+            players[playerIndex].addScore(); // Call the addScore method of the specific player
+        }
+        render('score');
+    }
+
     return{
         players,
         getPlayerScore,
+        addScore,
         render
     }
 
 })();
+
+
 
 
 
