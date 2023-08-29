@@ -108,51 +108,52 @@ const Onload =(function(){
 
 
 
-const game = (function (){
-    let gameBoard = [null,null,null,null,null,null,null,null,null];
-    const markGameboard =(i,marker)=>{
-       if (i >= 0 && i < gameBoard.length &&gameBoard[i] === null) {
-        if(marker === "X"){
-            gameBoard[i]="X"
-        }else if (marker === "O"){
-            gameBoard[i] = "O"
-        }
-    }
-    }
-    const  winCondition =() =>{
+// const game = (function (){
+//     // let gameBoard = [null,null,null,null,null,null,null,null,null];
+//     // const markGameboard =(i,marker)=>{
+//     //    if (i >= 0 && i < gameBoard.length &&gameBoard[i] === null) {
+//     //     if(marker === "X"){
+//     //         gameBoard[i]="X"
+//     //     }else if (marker === "O"){
+//     //         gameBoard[i] = "O"
+//     //     }
+//     // }
+//     // }
+//     const  winCondition =() =>{
     
-        const markers =["X","O"];
+//         const markers =["X","O"];
         
-        const result = markers.reduce((acc,curr) =>{
-            if(
-                (gameBoard[0]===curr && gameBoard[1]===curr && gameBoard[2]===curr) ||
-                (gameBoard[3]===curr && gameBoard[4]===curr && gameBoard[5]===curr) ||
-                (gameBoard[6]===curr && gameBoard[7]===curr && gameBoard[8]===curr) ||
-                (gameBoard[2]===curr && gameBoard[5]===curr && gameBoard[8]===curr) ||
-                (gameBoard[1]===curr && gameBoard[4]===curr && gameBoard[7]===curr) ||
-                (gameBoard[0]===curr && gameBoard[3]===curr && gameBoard[6]===curr) ||
-                (gameBoard[2]===curr && gameBoard[4]===curr && gameBoard[6]===curr) ||
-                (gameBoard[0]===curr && gameBoard[4]===curr && gameBoard[8]===curr) 
-            ){
-                acc = curr
-            }
-            return acc;
-        },"draw")
-    return result
-    }
+//         const result = markers.reduce((acc,curr) =>{
+//             if(
+//                 (gameBoard[0]===curr && gameBoard[1]===curr && gameBoard[2]===curr) ||
+//                 (gameBoard[3]===curr && gameBoard[4]===curr && gameBoard[5]===curr) ||
+//                 (gameBoard[6]===curr && gameBoard[7]===curr && gameBoard[8]===curr) ||
+//                 (gameBoard[2]===curr && gameBoard[5]===curr && gameBoard[8]===curr) ||
+//                 (gameBoard[1]===curr && gameBoard[4]===curr && gameBoard[7]===curr) ||
+//                 (gameBoard[0]===curr && gameBoard[3]===curr && gameBoard[6]===curr) ||
+//                 (gameBoard[2]===curr && gameBoard[4]===curr && gameBoard[6]===curr) ||
+//                 (gameBoard[0]===curr && gameBoard[4]===curr && gameBoard[8]===curr) 
+//             ){
+//                 acc = curr
+//             }
+//             return acc;
+//         },"draw")
+//     return result
+//     }
     
-    return{
-        gameBoard:gameBoard,
-        markGameboard,
-        winCondition
+//     return{
+//         gameBoard:gameBoard,
+//         markGameboard,
+//         winCondition
 
-    }
+//     }
 
-})();
+// })();
 
 
 const matchStart = (function(){
-
+    //variables
+    let gameBoard = [null,null,null,null,null,null,null,null,null];
     //caches
     const playArea = document.querySelector('.container');
 
@@ -163,11 +164,26 @@ const matchStart = (function(){
     })
 
     //methods 
+    const markGameboard =(i,marker)=>{
+        if (i >= 0 && i < gameBoard.length &&gameBoard[i] === null) {
+         if(marker === "X"){
+             gameBoard[i]="X"
+         }else if (marker === "O"){
+             gameBoard[i] = "O"
+         }
+     }
+     }
 
     function markPlayArea(e){
         const clicked= e.target.closest('div');
         const markpoint = clicked.dataset.number;
         const currentPlayer = checkPlayerTurn();
+
+        markGameboard(markpoint,currentPlayer);
+        console.log(`marked on ${markpoint}`)
+        console.log(`mark is ${currentPlayer}`)
+        console.log(gameBoard);
+
 
         clicked.textContent = currentPlayer;
 
