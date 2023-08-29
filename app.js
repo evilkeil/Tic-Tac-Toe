@@ -97,21 +97,6 @@ const Onload =(function(){
 
 
 
-
-
-// RenderScore.renderUserNames();
-// const startDialog =function (){
-//     document.addEventListener('DOMContentLoaded',function(){
-//         show
-//     })
-// }
-
-// const cache ={
-
-// }
-
-
-
 const game = (function (){
     let gameBoard = [null,null,null,null,null,null,null,null,null];
     const markGameboard =(i,marker)=>{
