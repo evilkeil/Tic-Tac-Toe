@@ -54,6 +54,10 @@ const Onload =(function(){
                 this.score++;
                 return this.score;
             },
+            decrementTurns:function(){
+                this.turns--;
+                return this.turns
+            },
             score: 0,
             turns:turns}
     }
@@ -85,10 +89,17 @@ const Onload =(function(){
         render('score');
     }
 
+    function reduceTurns(playerIndex){
+        if (playerIndex >= 0 && playerIndex < players.length) {
+            players[playerIndex].decrementTurns(); // Call the addScore method of the specific player
+        }
+    }
+
     return{
         players,
         getPlayerScore,
         addScore,
+        reduceTurns,
         render
     }
 
@@ -164,8 +175,11 @@ const matchStart = (function(){
 
     const checkPlayerTurn=()=>{
         if (Onload.players[1].turns >= Onload.players[0].turns){
+            Onload.reduceTurns(1)
             return Onload.players[1].marker
+            
         }else{
+            Onload.reduceTurns(0);
             return Onload.players[0].marker
         }
     }
