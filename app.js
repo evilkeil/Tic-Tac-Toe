@@ -1,6 +1,5 @@
 const Onload =(function(){
-    //variables
-    let players = [];
+   
     //cache
     const modal = document.querySelector('.modal');
     const resetBtn = document.querySelector('.reset');
@@ -8,6 +7,11 @@ const Onload =(function(){
     const usernameOne = document.getElementById('user-name1');
     const usernameTwo = document.getElementById('user-name2');
     const score = document.querySelectorAll('.score');
+
+    
+    //variables
+    let players = [];
+    const scoreArr = Array.from(score);
 
     //bind events
     document.addEventListener('DOMContentLoaded',()=>{
@@ -31,7 +35,7 @@ const Onload =(function(){
         _addToPlayers(player1,player2);
         form.reset();
         modal.close();
-        renderUserNames();
+        render('name');
         
     }
     const _createPlayer = function(name,marker){
@@ -47,7 +51,7 @@ const Onload =(function(){
             return score;
         
         }
-        return {name,marker,addScore,score,playerturns}
+        return {name,marker,addScore,score,turns}
     }
     function _addToPlayers(p1,p2){
         players.push(p1);
@@ -56,21 +60,24 @@ const Onload =(function(){
     function getPlayerScore(){
         return players.map(player => ({name:player.name , score: player.score}))
     }
-    function renderUserNames(){
-        const scoreArr = Array.from(score);
-        const playerNames = players.map(player => player.name);
-        scoreArr.forEach((scoreDiv,index)=>{
-            const h2Elem = scoreDiv.querySelector('.playerName');
-            h2Elem.textContent = playerNames[index];
-            console.log(playerNames);
-            
-        })
+    function render(key) {
+        const playerData = key === 'name' ? players.map(player => player.name) : players.map(player => player.score);
+        
+        scoreArr.forEach((scoreDiv, index) => {
+            if (key === 'name') {
+                const h2Elem = scoreDiv.querySelector('.playerName');
+                h2Elem.textContent = playerData[index];
+            } else if (key === 'score') {
+                const pElem = scoreDiv.querySelector('.playerScore');
+                pElem.textContent = playerData[index];
+            }
+        });
     }
 
     return{
         players,
         getPlayerScore,
-        renderUserNames
+        render
     }
 
 })();
