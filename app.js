@@ -25,8 +25,8 @@ const Onload =(function(){
         const user1 = usernameOne.value;
         const user2 = usernameTwo.value;
         
-        const player1 = _createPlayer(user1,"X",5);
-        const player2 = _createPlayer(user2,"O",4);
+        const player1 = _createPlayer(user1,"X");
+        const player2 = _createPlayer(user2,"O");
 
         _addToPlayers(player1,player2);
         form.reset();
@@ -34,9 +34,14 @@ const Onload =(function(){
         renderUserNames();
         
     }
-    const _createPlayer = function(name,marker,turns){
+    const _createPlayer = function(name,marker){
         let score = 0;
-        let playerturns = turns;
+        let turns;
+            if (marker === "X"){
+                turns = 5;
+            }else if (marker === "O"){
+                turns = 4;
+            }
         const addScore = ()=> {
             score++
             return score;
