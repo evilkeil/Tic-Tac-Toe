@@ -156,7 +156,10 @@ const matchStart = (function(){
     function markPlayArea(e){
         const clicked= e.target.closest('div');
         const markpoint = clicked.dataset.number;
-        console.log(checkPlayerTurn());
+        const currentPlayer = checkPlayerTurn();
+
+        clicked.textContent = currentPlayer;
+
     }
 
     const checkPlayerTurn=()=>{
