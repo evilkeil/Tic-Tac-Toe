@@ -223,9 +223,9 @@ const matchStart = (function(){
     
         if (win !== "draw") {
             if(win === Onload.players[0].marker){
-                console.log(` ${Onload.players[0].name} wins!`);
+                Onload.addScore(0);
             }else if(win === Onload.players[1].marker){
-                console.log(` ${Onload.players[1].name} wins!`);
+                Onload.addScore(0);
             }
             
         } else if (isDraw) {
