@@ -54,8 +54,24 @@
     </div>
 
     <div class="resetBtns">
-        <div class="btn"><button for="restart">Restart Match</button></div>
-        <div class="btn"><button for="restart">Restart Game</button></div>
+        <div class="btn match"><button for="restart-match">Restart Match</button></div>
+        <div class="btn game"><button for="restart-game">Restart Game</button></div>
     </div>
+
+    <dialog class="newGame-modal">
+        <h2>Are you sure you want to start the Round?</h2>
+        <form id="newGame">
+            <button id="yes-game">Yes</button>
+            <button id="no-game">No</button>
+        </form>
+    </dialog>
+    <dialog class="newMatch-modal">
+        <h2>Are you sure you want to start the Match?</h2>
+        <p>All the scores will be reset</p>
+        <form id="newMatch">
+            <button id="yes-match">Yes</button>
+            <button id="no-match">No</button>
+        </form>
+    </dialog>
 </body>
 </html>

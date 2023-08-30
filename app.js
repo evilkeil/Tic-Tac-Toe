@@ -105,52 +105,6 @@ const Onload =(function(){
 
 })();
 
-
-
-
-// const game = (function (){
-    // let gameBoard = [null,null,null,null,null,null,null,null,null];
-    // const markGameboard =(i,marker)=>{
-    //    if (i >= 0 && i < gameBoard.length &&gameBoard[i] === null) {
-    //     if(marker === "X"){
-    //         gameBoard[i]="X"
-    //     }else if (marker === "O"){
-    //         gameBoard[i] = "O"
-    //     }
-    // }
-//     // }
-//     const  winCondition =() =>{
-    
-//         const markers =["X","O"];
-        
-//         const result = markers.reduce((acc,curr) =>{
-//             if(
-//                 (gameBoard[0]===curr && gameBoard[1]===curr && gameBoard[2]===curr) ||
-//                 (gameBoard[3]===curr && gameBoard[4]===curr && gameBoard[5]===curr) ||
-//                 (gameBoard[6]===curr && gameBoard[7]===curr && gameBoard[8]===curr) ||
-//                 (gameBoard[2]===curr && gameBoard[5]===curr && gameBoard[8]===curr) ||
-//                 (gameBoard[1]===curr && gameBoard[4]===curr && gameBoard[7]===curr) ||
-//                 (gameBoard[0]===curr && gameBoard[3]===curr && gameBoard[6]===curr) ||
-//                 (gameBoard[2]===curr && gameBoard[4]===curr && gameBoard[6]===curr) ||
-//                 (gameBoard[0]===curr && gameBoard[4]===curr && gameBoard[8]===curr) 
-//             ){
-//                 acc = curr
-//             }
-//             return acc;
-//         },"draw")
-//     return result
-//     }
-    
-//     return{
-//         gameBoard:gameBoard,
-//         markGameboard,
-//         winCondition
-
-//     }
-
-// // })();
-
-
 const matchStart = (function(){
     //variables
     let gameBoard = [null,null,null,null,null,null,null,null,null];
@@ -245,31 +199,63 @@ const matchStart = (function(){
             return Onload.players[0].marker
         }
     }
+
+    function clearGameBoard(){
+        gameBoard=[null,null,null,null,null,null,null,null,null]
+        
+
+    
+    }
+
+    return{
+        gameBoard,
+        clearGameBoard,
+    }
 })();
 
 
+const resetGame = (function(){
+    //cache
+    const boxDivs = document.querySelectorAll('.box')
+    const resetGame = document.querySelector('.game');
+    const resetMatch = document.querySelector('.match');
+    const modalRestartGame  = document.querySelector('.newGame-modal');
+    const restartGameY = document.getElementById('yes-game');
+    const restartGameN = document.getElementById('no-game');
+    // const modalRestartMatch = document.querySelector('.newMatch-modal');
 
 
+    // //bind events
+    resetGame.addEventListener('click',(e)=> _startNewGame(e));
+    resetMatch.addEventListener('click',_startNewMatch())
+    restartGameY.addEventListener('click',(e)=> _resetGame(e))
+    restartGameN.addEventListener('click',(e)=> _closemodal(e,modalRestartGame))
+    
 
-// game.markGameboard(0,"O");
-// game.markGameboard(1,"X");
-// game.markGameboard(2,"O");
-// game.markGameboard(3,"O");
-// game.markGameboard(4,"X");
-// game.markGameboard(5,"O");
-// game.markGameboard(6,"X");
-// game.markGameboard(7,"X");
-// game.markGameboard(8,"O");
+    //methods
+    function _startNewGame(e){
+        e.preventDefault();
+        modalRestartGame.showModal();
+    }
+    console.log(boxDivs)
 
-// let x = game.winCondition()
+    function _resetGame(e){
+        e.preventDefault();
+        matchStart.clearGameBoard();
+        boxDivs.forEach(box =>{
+            box.dataset.status="un-marked";
+            box.textContent=""
+            console.log(matchStart.gameBoard)
+            modalRestartGame.close();
+        })
+        
+    }
+    function  _closemodal(e,modal){
+        e.preventDefault();
+        modal.close();
+    }
+    function _startNewMatch(){
 
-// console.log(game.gameBoard)
-
-// console.log(`${x} wins`)
-
-
-
-
-// console.log(winCondition());
-
+    }
+})();
 
