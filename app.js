@@ -202,14 +202,22 @@ const matchStart = (function(){
     function markPlayArea(e){
         const clicked= e.target.closest('div');
         const markpoint = clicked.dataset.number;
-        const currentPlayer = checkPlayerTurn();
-
-        markGameboard(markpoint,currentPlayer);
-        console.log(`marked on ${markpoint}`)
-        console.log(`mark is ${currentPlayer}`)
+       
+        
+        if (clicked.dataset.status === "un-marked"){
+            
+            clicked.dataset.status = "marked";
+            const currentPlayer = checkPlayerTurn();
+            clicked.textContent = currentPlayer;
+            markGameboard(markpoint,currentPlayer);
+            console.log(`marked on ${markpoint}`)
+            console.log(`mark is ${currentPlayer}`)
+        }
+        
+        
         console.log(gameBoard);
         
-        clicked.textContent = currentPlayer;
+        
         const win = winCondition();
         const isDraw = gameBoard.every(cell => cell !== null);
     
