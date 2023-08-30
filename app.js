@@ -110,6 +110,7 @@ const matchStart = (function(){
     let gameBoard = [null,null,null,null,null,null,null,null,null];
     //caches
     const playArea = document.querySelector('.container');
+    const boxDivs = document.querySelectorAll('.box')
 
     //bindEvents
   
@@ -156,7 +157,6 @@ const matchStart = (function(){
     function markPlayArea(e){
         const clicked= e.target.closest('div');
         const markpoint = clicked.dataset.number;
-       
         
         if (clicked.dataset.status === "un-marked"){
             
@@ -164,29 +164,41 @@ const matchStart = (function(){
             const currentPlayer = checkPlayerTurn();
             clicked.textContent = currentPlayer;
             markGameboard(markpoint,currentPlayer);
-            console.log(`marked on ${markpoint}`)
-            console.log(`mark is ${currentPlayer}`)
+            
         }
-        
+        winDeclaration();
         
         console.log(gameBoard);
         
-        
+    }
+
+    const winDeclaration = ()=>{
+
         const win = winCondition();
         const isDraw = gameBoard.every(cell => cell !== null);
     
         if (win !== "draw") {
             if(win === Onload.players[0].marker){
                 Onload.addScore(0);
+                setTimeout(() => {
+                    alert(`${Onload.players[0].name} wins`);
+                    reset();
+                }, 50);
             }else if(win === Onload.players[1].marker){
-                Onload.addScore(0);
+                Onload.addScore(1);
+                setTimeout(() => {
+                    alert(`${Onload.players[1].name} wins`);
+                    reset();
+                }, 50);
             }
             
         } else if (isDraw) {
-           
-            console.log("It's a draw!");
+            setTimeout(() => {
+                alert(`Its a draw`);
+                reset();
+            }, 50);
+            
         }
-
     }
 
     const checkPlayerTurn=()=>{
@@ -207,16 +219,31 @@ const matchStart = (function(){
     
     }
 
+    function resetPlayerTurns(){
+        Onload.players[1].turns = 4; //O
+        Onload.players[0].turns = 5 //X
+    }
+
+    function reset(){
+        clearGameBoard();
+         resetPlayerTurns()
+        boxDivs.forEach(box =>{
+            box.dataset.status="un-marked";
+            box.textContent=""
+            console.log(matchStart.gameBoard)})
+    }
+
     return{
         gameBoard,
         clearGameBoard,
+        reset,
     }
 })();
 
 
 const resetGame = (function(){
     //cache
-    const boxDivs = document.querySelectorAll('.box')
+    // const boxDivs = document.querySelectorAll('.box')
     const resetGame = document.querySelector('.game');
     const resetMatch = document.querySelector('.match');
     const modalRestartGame  = document.querySelector('.newGame-modal');
@@ -237,17 +264,15 @@ const resetGame = (function(){
         e.preventDefault();
         modalRestartGame.showModal();
     }
-    console.log(boxDivs)
+    
 
     function _resetGame(e){
         e.preventDefault();
         matchStart.clearGameBoard();
-        boxDivs.forEach(box =>{
-            box.dataset.status="un-marked";
-            box.textContent=""
-            console.log(matchStart.gameBoard)
-            modalRestartGame.close();
-        })
+        matchStart.reset();
+        _closemodal(e,modalRestartGame);
+        
+
         
     }
     function  _closemodal(e,modal){
