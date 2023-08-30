@@ -109,15 +109,15 @@ const Onload =(function(){
 
 
 // const game = (function (){
-//     // let gameBoard = [null,null,null,null,null,null,null,null,null];
-//     // const markGameboard =(i,marker)=>{
-//     //    if (i >= 0 && i < gameBoard.length &&gameBoard[i] === null) {
-//     //     if(marker === "X"){
-//     //         gameBoard[i]="X"
-//     //     }else if (marker === "O"){
-//     //         gameBoard[i] = "O"
-//     //     }
-//     // }
+    // let gameBoard = [null,null,null,null,null,null,null,null,null];
+    // const markGameboard =(i,marker)=>{
+    //    if (i >= 0 && i < gameBoard.length &&gameBoard[i] === null) {
+    //     if(marker === "X"){
+    //         gameBoard[i]="X"
+    //     }else if (marker === "O"){
+    //         gameBoard[i] = "O"
+    //     }
+    // }
 //     // }
 //     const  winCondition =() =>{
     
@@ -148,7 +148,7 @@ const Onload =(function(){
 
 //     }
 
-// })();
+// // })();
 
 
 const matchStart = (function(){
@@ -158,11 +158,15 @@ const matchStart = (function(){
     const playArea = document.querySelector('.container');
 
     //bindEvents
-
+  
     playArea.addEventListener('click',(e)=>{
-        markPlayArea(e);
+       
+            markPlayArea(e);
+        
+        
     })
-
+    
+     
     //methods 
     const markGameboard =(i,marker)=>{
         if (i >= 0 && i < gameBoard.length &&gameBoard[i] === null) {
@@ -173,7 +177,28 @@ const matchStart = (function(){
          }
      }
      }
-
+     const  winCondition =() =>{
+    
+        const markers =["X","O"];
+        
+        const result = markers.reduce((acc,curr) =>{
+            
+            if(
+                (gameBoard[0]===curr && gameBoard[1]===curr && gameBoard[2]===curr) ||
+                (gameBoard[3]===curr && gameBoard[4]===curr && gameBoard[5]===curr) ||
+                (gameBoard[6]===curr && gameBoard[7]===curr && gameBoard[8]===curr) ||
+                (gameBoard[2]===curr && gameBoard[5]===curr && gameBoard[8]===curr) ||
+                (gameBoard[1]===curr && gameBoard[4]===curr && gameBoard[7]===curr) ||
+                (gameBoard[0]===curr && gameBoard[3]===curr && gameBoard[6]===curr) ||
+                (gameBoard[2]===curr && gameBoard[4]===curr && gameBoard[6]===curr) ||
+                (gameBoard[0]===curr && gameBoard[4]===curr && gameBoard[8]===curr) 
+            ){
+                acc = curr
+            }
+            return acc;
+        },"draw")
+    return result
+    }
     function markPlayArea(e){
         const clicked= e.target.closest('div');
         const markpoint = clicked.dataset.number;
@@ -183,9 +208,22 @@ const matchStart = (function(){
         console.log(`marked on ${markpoint}`)
         console.log(`mark is ${currentPlayer}`)
         console.log(gameBoard);
-
-
+        
         clicked.textContent = currentPlayer;
+        const win = winCondition();
+        const isDraw = gameBoard.every(cell => cell !== null);
+    
+        if (win !== "draw") {
+            if(win === Onload.players[0].marker){
+                console.log(` ${Onload.players[0].name} wins!`);
+            }else if(win === Onload.players[1].marker){
+                console.log(` ${Onload.players[1].name} wins!`);
+            }
+            
+        } else if (isDraw) {
+           
+            console.log("It's a draw!");
+        }
 
     }
 
@@ -225,7 +263,5 @@ const matchStart = (function(){
 
 
 // console.log(winCondition());
-
-
 
 
