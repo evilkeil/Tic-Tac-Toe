@@ -168,7 +168,6 @@ const matchStart = (function(){
         }
         winDeclaration();
         
-        console.log(gameBoard);
         
     }
 
@@ -229,8 +228,8 @@ const matchStart = (function(){
          resetPlayerTurns()
         boxDivs.forEach(box =>{
             box.dataset.status="un-marked";
-            box.textContent=""
-            console.log(matchStart.gameBoard)})
+            box.textContent="";
+        })
     }
 
     function resetScores(){
@@ -248,7 +247,6 @@ const matchStart = (function(){
 
 const resetGame = (function(){
     //cache
-    // const boxDivs = document.querySelectorAll('.box')
     const resetGame = document.querySelector('.game');
     const resetMatch = document.querySelector('.match');
     const modalRestartGame  = document.querySelector('.newGame-modal');
