@@ -221,7 +221,7 @@ const matchStart = (function(){
 
     function resetPlayerTurns(){
         Onload.players[1].turns = 4; //O
-        Onload.players[0].turns = 5 //X
+        Onload.players[0].turns = 5;//X
     }
 
     function reset(){
@@ -233,9 +233,14 @@ const matchStart = (function(){
             console.log(matchStart.gameBoard)})
     }
 
+    function resetScores(){
+        Onload.players[1].score = 0; 
+        Onload.players[0].score = 0;
+    }
     return{
         gameBoard,
         clearGameBoard,
+        resetScores,
         reset,
     }
 })();
@@ -249,20 +254,24 @@ const resetGame = (function(){
     const modalRestartGame  = document.querySelector('.newGame-modal');
     const restartGameY = document.getElementById('yes-game');
     const restartGameN = document.getElementById('no-game');
-    // const modalRestartMatch = document.querySelector('.newMatch-modal');
+    const modalRestartMatch = document.querySelector('.newMatch-modal');
+    const restartMatchY = document.getElementById('yes-match');
+    const restartMatchN = document.getElementById('no-match');
 
 
-    // //bind events
-    resetGame.addEventListener('click',(e)=> _startNewGame(e));
-    resetMatch.addEventListener('click',_startNewMatch())
+     //bind events
+    resetGame.addEventListener('click',(e)=> _popModal(e,modalRestartGame));
     restartGameY.addEventListener('click',(e)=> _resetGame(e))
     restartGameN.addEventListener('click',(e)=> _closemodal(e,modalRestartGame))
+    resetMatch.addEventListener('click',(e)=> _popModal(e,modalRestartMatch));
+    restartMatchY.addEventListener('click',(e)=>_resetMatch(e))
+    restartMatchN.addEventListener('click',(e)=> _closemodal(e,modalRestartMatch))
     
 
     //methods
-    function _startNewGame(e){
+    function _popModal(e,modal){
         e.preventDefault();
-        modalRestartGame.showModal();
+        modal.showModal();
     }
     
 
@@ -279,8 +288,13 @@ const resetGame = (function(){
         e.preventDefault();
         modal.close();
     }
-    function _startNewMatch(){
-
+    function _resetMatch(e){
+        e.preventDefault();
+        matchStart.clearGameBoard();
+        matchStart.reset();
+        matchStart.resetScores();
+        Onload.render('score');
+        _closemodal(e,modalRestartMatch)
     }
 })();
 
