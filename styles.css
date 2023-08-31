@@ -55,6 +55,12 @@ h1{
     border-top: 5px solid black;
     border-right: 5px solid black;
 }
+.container:hover{
+    cursor: pointer;
+}
+[data-status="marked"]:hover {
+    cursor: not-allowed;
+}
 
 .play-area{
     display: flex;
